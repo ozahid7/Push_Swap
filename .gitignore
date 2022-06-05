@@ -1,0 +1,4 @@
+build
+*.o
+checker_Mac (1)
+push_swap
