@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 16:27:46 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/06/05 20:48:44 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/06/06 21:56:42 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
+#include <stdio.h>
+
 # include "ft_printf.h"
 
 typedef struct s_main
 {
-    char **args;
+    char    **args;
+    int     *values;
 } t_main;
 
 
