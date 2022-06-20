@@ -8,7 +8,9 @@ BUILD_B = build
 
 FILES = ft_printf/ft_argp ft_printf/ft_hexa ft_printf/ft_printf  ft_printf/ft_putchar\
 		ft_printf/ft_putnbr ft_printf/ft_putstr ft_printf/ft_unsignednumber\
+		t_list/ft_lstadd_back t_list/ft_lstadd_front t_list/ft_lstnew t_list/ft_lstlast\
 		push_swap_utilis_fun push_swap push_swap_split \
+
 		
 		
 

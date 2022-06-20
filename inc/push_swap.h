@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 16:27:46 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/06/07 02:28:54 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/06/20 23:56:37 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,30 @@
 # include <stdlib.h>
 #include <stdio.h>
 
-# include "ft_printf.h"
+#include "ft_printf.h"
+
+typedef struct s_item
+{
+    int value;
+    int pos;
+}   t_item;
+
+typedef struct s_stacks
+{
+    t_item *item;
+    int len;
+    int start;
+}   t_stacks;
 
 typedef struct s_main
 {
     char    **args;
     int     *values;
+    t_stacks    sa;
+    t_stacks    sb;
     int     len;
 } t_main;
+
 
 
 size_t  ft_strlcat(char *dst, char *src);
@@ -34,6 +50,12 @@ int     ft_strlen(char *str);
 int     ft_atoi(char *str);
 void	ft_free(char **args);
 
+//instructions
+void	ft_rab(t_main *ptr, char c);
+void	ft_sab(t_main *ptr, char c);
+void	ft_ss(t_main ptr);
+void	ft_rrr(t_main ptr);
+void	ft_rrab(t_main *ptr, char c);
 
 
 

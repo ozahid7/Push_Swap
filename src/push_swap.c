@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 20:06:01 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/06/07 02:40:36 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/06/21 00:40:26 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	parser(t_main *ptr, int ac, char **av)
 	
 	str = NULL;
 	if (ac == 1)
-        return (ft_printf("Error\n"), 1);
+        return (1);
     while (ac > 1 && av[i])
     {
         str = ft_strjoin(str, av[i]);
@@ -104,19 +104,133 @@ int	clone_data(t_main *ptr)
 	int	i;
 	int	j;
 	
-	i = 0;
+	i = argslen(*ptr) - 1;
 	j = 0;
+	ptr->sa.len = argslen(*ptr);
+	ptr->sb.len = 0;
 	ptr->len = argslen(*ptr);
-	ptr->values = (int *)malloc(sizeof(int) * ptr->len);
-	if (!ptr->values)
+	ptr->sa.item = (t_item *)malloc(sizeof(t_item *) * ptr->len);
+	if (!ptr->sa.item)
+		return (0);
+	ptr->sb.item = (t_item *)malloc(sizeof(t_item *) * ptr->len);
+	if (!ptr->sb.item)
 		return (0);
 	while(ptr->args[i])
 	{
-		ptr->values[j] = ft_atoi(ptr->args[i]);
-		i++;
+		ptr->sa.item[j].value = ft_atoi(ptr->args[i]);
+		i--;
 		j++;
 	}
+	ft_free(ptr->args);	
 	return (0);
+}
+void	ft_sab(t_main *ptr, char c)
+{
+	int	tmp;
+	int	len;
+
+	if (ptr->len > 1 && c == 'a')
+	{
+		len = ptr->sa.len - 1;
+		tmp = ptr->sa.item[len].value;
+		ptr->sa.item[len].value = ptr->sa.item[len - 1].value;
+		ptr->sa.item[len - 1].value = tmp;
+	}
+	if (ptr->len > 1 && c == 'b')
+	{
+		len = ptr->sb.len - 1;
+		tmp = ptr->sb.item[len].value;
+		ptr->sb.item[len].value = ptr->sb.item[len - 1].value;
+		ptr->sb.item[len - 1].value = tmp;
+	}
+}
+
+void	ft_rab(t_main *ptr, char c)
+{
+	int len;
+	int	tmp;
+	
+	if (c == 'a')
+	{
+		len = ptr->sa.len - 1;
+		tmp = ptr->sa.item[len].value;
+		while (len > 0 && ptr->len > 1)
+		{
+			ptr->sa.item[len].value  = ptr->sa.item[len - 1].value;
+			len--;
+		}
+		ptr->sa.item[len].value = tmp;
+	}
+	if (c == 'b')
+	{
+		tmp = ptr->sb.item[len].value;
+		len = ptr->sa.len - 1;
+		while (len > 0 && ptr->len > 1)
+		{
+			ptr->sb.item[len].value  = ptr->sb.item[len - 1].value;
+			len--;
+		}
+		ptr->sb.item[len].value = tmp;
+	}
+		
+}
+
+void	ft_rrab(t_main *ptr, char c)
+{
+	int	tmp;
+	int	len;
+	
+	if (c == 'a')
+	{
+		tmp = ptr->sa.item[ptr->len - 1].value;
+		len = ptr->sa.len - 1;
+		while (len-- > 0 && ptr->len > 1)
+			ptr->sa.item[len].value = ptr->sa.item[len - 1].value;
+		ptr->sa.item[len].value = tmp;
+	}
+	if (c == 'b')
+	{
+		tmp = ptr->sb.item[ptr->len - 1].value;
+		len = ptr->sb.len - 1;
+		while (len-- > 0 && ptr->len > 1)
+			ptr->sb.item[len].value = ptr->sb.item[len - 1].value;
+		ptr->sb.item[len].value = tmp;
+	}
+}
+
+void	ft_rrr(t_main ptr)
+{
+	ft_rrab(&ptr, 'a');
+	ft_rrab(&ptr, 'b');
+}
+
+void	ft_ss(t_main ptr)
+{
+	ft_sab(&ptr, 'a');
+	ft_sab(&ptr, 'b');
+}
+
+void	ft_push_to(t_main *ptr, char c)
+{
+	int	i;
+	int	lena;
+	int	lenb;
+
+	i = 0;
+	lena = ptr->sa.len - 1;
+	lenb = ptr->sb.len;
+	if (c == 'b' && ptr->sa.len != 0)
+	{
+		ptr->sb.item[lenb].value = ptr->sa.item[lena].value;
+		ptr->sb.len++;
+		ptr->sa.len--;
+	}
+	if (c == 'a' && ptr->sb.len != 0)
+	{
+		ptr->sa.item[lena].value = ptr->sb.item[lenb].value;
+		ptr->sa.len++;
+		ptr->sb.len--;
+	}
 }
 
 int main(int ac, char **av)
@@ -129,12 +243,10 @@ int main(int ac, char **av)
 	if (check_empty(ptr))
 		return (ft_printf("Error\n"), 1);
 	if (clone_data(&ptr))
-		return (ft_printf("Error\n"), 1);
-	while (i < ptr.len)
-	{
-		printf("%d\n", ptr.values[i]);
-		i++;
-	}
-	ft_free(ptr.args);	
+	 	return (ft_printf("Error\n"), 1);
+	ft_rab(&ptr, 'a');
+		i = ptr.sa.len;
+	while (i-- > 0)
+		printf("%d\n", ptr.sa.item[i].value);
 	return (0);
 }
