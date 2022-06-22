@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 16:27:46 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/06/20 23:56:37 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/06/22 01:13:48 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,15 @@ void	ft_ss(t_main ptr);
 void	ft_rrr(t_main ptr);
 void	ft_rrab(t_main *ptr, char c);
 
+//parser
+int	    argslen(t_main ptr);
+void	ft_freeit(char **args);
+int	    parser(t_main *ptr, int ac, char **av);
+int     check_empty(t_main ptr);
+int     check_args_int(t_main ptr);
 
+int	clone_data(t_main *ptr);
+void	ft_push_to(t_main *ptr, char c);
 
 size_t	countword(char *str, char c);
 size_t	wordlen(char *str, char c, int i);

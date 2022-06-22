@@ -6,98 +6,11 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 20:06:01 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/06/21 00:40:26 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/06/22 02:58:42 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-int    check_args_int(t_main ptr)
-{
-	int i;
-	int j;
-	
-	i = 0;
-	while (ptr.args[i])
-	{
-		j = 0;
-		while (ptr.args[i][j])
-		{
-			if (ptr.args[i][j] < 47 || ptr.args[i][j] > 57)
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
-int check_empty(t_main ptr)
-{
-	int i;
-	int j;
-
-	i = 0;
-	if (ptr.args[i] == 0)
-		return (1);
-	while (ptr.args[i])
-	{
-		j = 0;
-		while (ptr.args[i][j])
-		{
-			if (ptr.args[i][j] == ' ')
-				j++;
-			else if (ptr.args[i][j] != ' ' && check_args_int(ptr))
-					return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-int	parser(t_main *ptr, int ac, char **av)
-{
-	int		i;
-	char	*str;
-	i = 1;
-	
-	str = NULL;
-	if (ac == 1)
-        return (1);
-    while (ac > 1 && av[i])
-    {
-        str = ft_strjoin(str, av[i]);
-        str = ft_strjoin(str, " ");
-        i++;
-    }
-	ptr->args = ft_split(str, ' ');
-	free(str);
-	return 0;
-}
-void	ft_free(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i])
-	{
-		free(args[i]);
-		i++;
-	}
-	free(args);
-}
-int	argslen(t_main ptr)
-{
-	int	i;
-
-	i = 0;
-	if (ptr.args == 0)
-		return (0);
-	while (ptr.args[i])
-	{
-		i++;
-	}
-	return (i);
-}
 
 int	clone_data(t_main *ptr)
 {
@@ -115,99 +28,14 @@ int	clone_data(t_main *ptr)
 	ptr->sb.item = (t_item *)malloc(sizeof(t_item *) * ptr->len);
 	if (!ptr->sb.item)
 		return (0);
-	while(ptr->args[i])
+	while(i >= 0)
 	{
 		ptr->sa.item[j].value = ft_atoi(ptr->args[i]);
 		i--;
 		j++;
 	}
-	ft_free(ptr->args);	
+	ft_freeit(ptr->args);	
 	return (0);
-}
-void	ft_sab(t_main *ptr, char c)
-{
-	int	tmp;
-	int	len;
-
-	if (ptr->len > 1 && c == 'a')
-	{
-		len = ptr->sa.len - 1;
-		tmp = ptr->sa.item[len].value;
-		ptr->sa.item[len].value = ptr->sa.item[len - 1].value;
-		ptr->sa.item[len - 1].value = tmp;
-	}
-	if (ptr->len > 1 && c == 'b')
-	{
-		len = ptr->sb.len - 1;
-		tmp = ptr->sb.item[len].value;
-		ptr->sb.item[len].value = ptr->sb.item[len - 1].value;
-		ptr->sb.item[len - 1].value = tmp;
-	}
-}
-
-void	ft_rab(t_main *ptr, char c)
-{
-	int len;
-	int	tmp;
-	
-	if (c == 'a')
-	{
-		len = ptr->sa.len - 1;
-		tmp = ptr->sa.item[len].value;
-		while (len > 0 && ptr->len > 1)
-		{
-			ptr->sa.item[len].value  = ptr->sa.item[len - 1].value;
-			len--;
-		}
-		ptr->sa.item[len].value = tmp;
-	}
-	if (c == 'b')
-	{
-		tmp = ptr->sb.item[len].value;
-		len = ptr->sa.len - 1;
-		while (len > 0 && ptr->len > 1)
-		{
-			ptr->sb.item[len].value  = ptr->sb.item[len - 1].value;
-			len--;
-		}
-		ptr->sb.item[len].value = tmp;
-	}
-		
-}
-
-void	ft_rrab(t_main *ptr, char c)
-{
-	int	tmp;
-	int	len;
-	
-	if (c == 'a')
-	{
-		tmp = ptr->sa.item[ptr->len - 1].value;
-		len = ptr->sa.len - 1;
-		while (len-- > 0 && ptr->len > 1)
-			ptr->sa.item[len].value = ptr->sa.item[len - 1].value;
-		ptr->sa.item[len].value = tmp;
-	}
-	if (c == 'b')
-	{
-		tmp = ptr->sb.item[ptr->len - 1].value;
-		len = ptr->sb.len - 1;
-		while (len-- > 0 && ptr->len > 1)
-			ptr->sb.item[len].value = ptr->sb.item[len - 1].value;
-		ptr->sb.item[len].value = tmp;
-	}
-}
-
-void	ft_rrr(t_main ptr)
-{
-	ft_rrab(&ptr, 'a');
-	ft_rrab(&ptr, 'b');
-}
-
-void	ft_ss(t_main ptr)
-{
-	ft_sab(&ptr, 'a');
-	ft_sab(&ptr, 'b');
 }
 
 void	ft_push_to(t_main *ptr, char c)
@@ -233,6 +61,38 @@ void	ft_push_to(t_main *ptr, char c)
 	}
 }
 
+int	ft_sorted(t_main ptr)
+{
+	int	i;
+
+	i = ptr.sa.len - 1;
+	while (i > 0)
+	{
+		if (ptr.sa.item[i].value > ptr.sa.item[i - 1].value)
+			return (1);
+		i--;
+	}
+	return (0);
+}
+void	t_sort(t_main *ptr)
+{
+	if ((ptr->sa.item[0].value > ptr->sa.item[1].value
+			&& ptr->sa.item[1].value < ptr->sa.item[2].value)
+		|| (ptr->sa.item[2].value > ptr->sa.item[1].value
+			&& ptr->sa.item[1].value > ptr->sa.item[0].value)
+		|| (ptr->sa.item[2].value < ptr->sa.item[1].value
+			&& ptr->sa.item[1].value > ptr->sa.item[0].value))
+		ft_sab(&ptr, 'a');
+	if (ptr->sa.item[2].value < ptr->sa.item[1].value
+			&& ptr->sa.item[1].value > ptr->sa.item[0].value
+		|| ptr->sa.item[2].value < ptr->sa.item[1].value
+			&& ptr->sa.item[1].value > ptr->sa.item[0].value)
+		ft_rrab(&ptr, 'a');
+	if (ptr->sa.item[2].value > ptr->sa.item[1].value
+			&& ptr->sa.item[1].value < ptr->sa.item[0].value)
+		ft_rab(&ptr, 'a');
+	
+}
 int main(int ac, char **av)
 {
     int     i;
@@ -244,9 +104,15 @@ int main(int ac, char **av)
 		return (ft_printf("Error\n"), 1);
 	if (clone_data(&ptr))
 	 	return (ft_printf("Error\n"), 1);
-	ft_rab(&ptr, 'a');
-		i = ptr.sa.len;
-	while (i-- > 0)
-		printf("%d\n", ptr.sa.item[i].value);
+	if (!ft_sorted(ptr))
+		return(ft_printf("numbers are sorted"), 1);
+	t_sort(&ptr);
+	// ft_ss(ptr);
+	// i = ptr.sb.len;
+	// while (i-- > 0)
+	// 	printf("%d\n", ptr.sb.item[i].value);
+	// int j = ptr.sa.len;
+	// while (j-- > 0)
+	// 	printf("%d\n", ptr.sa.item[j].value);
 	return (0);
 }
