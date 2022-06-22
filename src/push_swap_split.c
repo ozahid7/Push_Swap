@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 20:07:53 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/05/24 00:06:47 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/06/23 00:09:11 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	ft_bzero(void *s, size_t n)
 {
 	ft_memset(s, '\0', n);
 }
-
 
 void	*ft_calloc(size_t count, size_t size)
 {

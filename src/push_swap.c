@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 20:06:01 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/06/22 02:58:42 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/06/23 00:44:09 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	clone_data(t_main *ptr)
 {
 	int	i;
 	int	j;
-	
+
 	i = argslen(*ptr) - 1;
 	j = 0;
 	ptr->sa.len = argslen(*ptr);
@@ -28,13 +28,13 @@ int	clone_data(t_main *ptr)
 	ptr->sb.item = (t_item *)malloc(sizeof(t_item *) * ptr->len);
 	if (!ptr->sb.item)
 		return (0);
-	while(i >= 0)
+	while (i >= 0)
 	{
 		ptr->sa.item[j].value = ft_atoi(ptr->args[i]);
 		i--;
 		j++;
 	}
-	ft_freeit(ptr->args);	
+	ft_freeit(ptr->args);
 	return (0);
 }
 
@@ -74,45 +74,44 @@ int	ft_sorted(t_main ptr)
 	}
 	return (0);
 }
+
 void	t_sort(t_main *ptr)
 {
-	if ((ptr->sa.item[0].value > ptr->sa.item[1].value
+	if ((ptr->sa.item[0].value > ptr->sa.item[2].value
 			&& ptr->sa.item[1].value < ptr->sa.item[2].value)
-		|| (ptr->sa.item[2].value > ptr->sa.item[1].value
+		|| (ptr->sa.item[1].value < ptr->sa.item[2].value
 			&& ptr->sa.item[1].value > ptr->sa.item[0].value)
-		|| (ptr->sa.item[2].value < ptr->sa.item[1].value
+		|| (ptr->sa.item[0].value > ptr->sa.item[2].value
+			&& ptr->sa.item[2].value < ptr->sa.item[1].value))
+		ft_sab(ptr, 'a');
+	if ((ptr->sa.item[1].value > ptr->sa.item[2].value
 			&& ptr->sa.item[1].value > ptr->sa.item[0].value))
-		ft_sab(&ptr, 'a');
-	if (ptr->sa.item[2].value < ptr->sa.item[1].value
-			&& ptr->sa.item[1].value > ptr->sa.item[0].value
-		|| ptr->sa.item[2].value < ptr->sa.item[1].value
-			&& ptr->sa.item[1].value > ptr->sa.item[0].value)
-		ft_rrab(&ptr, 'a');
-	if (ptr->sa.item[2].value > ptr->sa.item[1].value
-			&& ptr->sa.item[1].value < ptr->sa.item[0].value)
-		ft_rab(&ptr, 'a');
-	
+		ft_rrab(ptr, 'a');
+	if (ptr->sa.item[2].value > ptr->sa.item[0].value
+		&& ptr->sa.item[1].value < ptr->sa.item[2].value)
+		ft_rab(ptr, 'a');
 }
-int main(int ac, char **av)
+
+int	main(int ac, char **av)
 {
-    int     i;
-    t_main	ptr;
-    i = 0;
+	t_main	ptr;
+	int		i;
+
+	i = 0;
 	if (parser(&ptr, ac, av))
 		return (ft_printf("Error\n"), 1);
 	if (check_empty(ptr))
 		return (ft_printf("Error\n"), 1);
 	if (clone_data(&ptr))
-	 	return (ft_printf("Error\n"), 1);
+		return (ft_printf("Error\n"), 1);
 	if (!ft_sorted(ptr))
-		return(ft_printf("numbers are sorted"), 1);
+		return (ft_printf("numbers are sorted"), 1);
 	t_sort(&ptr);
-	// ft_ss(ptr);
 	// i = ptr.sb.len;
 	// while (i-- > 0)
 	// 	printf("%d\n", ptr.sb.item[i].value);
-	// int j = ptr.sa.len;
-	// while (j-- > 0)
-	// 	printf("%d\n", ptr.sa.item[j].value);
+	int j = ptr.sa.len;
+	while (j-- > 0)
+		printf("%d\n", ptr.sa.item[j].value);
 	return (0);
 }

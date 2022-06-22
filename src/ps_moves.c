@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 01:00:59 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/06/22 01:02:00 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/06/23 00:06:24 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,39 +35,38 @@ void	ft_sab(t_main *ptr, char c)
 
 void	ft_rab(t_main *ptr, char c)
 {
-	int len;
+	int	len;
 	int	tmp;
-	
-	if (c == 'a'  && ptr->sa.len > 1)
+
+	if (c == 'a' && ptr->sa.len > 1)
 	{
 		len = ptr->sa.len - 1;
 		tmp = ptr->sa.item[len].value;
-		while (len > 1)
+		while (len > 0)
 		{
-			ptr->sa.item[len].value  = ptr->sa.item[len - 1].value;
+			ptr->sa.item[len].value = ptr->sa.item[len - 1].value;
 			len--;
 		}
 		ptr->sa.item[len].value = tmp;
 	}
-	if (c == 'b'  && ptr->sa.len > 1)
+	if (c == 'b' && ptr->sa.len > 1)
 	{
 		tmp = ptr->sb.item[len].value;
 		len = ptr->sa.len - 1;
-		while (len > 1)
+		while (len > 0)
 		{
-			ptr->sb.item[len].value  = ptr->sb.item[len - 1].value;
+			ptr->sb.item[len].value = ptr->sb.item[len - 1].value;
 			len--;
 		}
 		ptr->sb.item[len].value = tmp;
-	}
-		
+	}	
 }
 
 void	ft_rrab(t_main *ptr, char c)
 {
 	int	tmp;
 	int	i;
-	
+
 	i = 0;
 	if (c == 'a' && ptr->sa.len > 1)
 	{
@@ -79,7 +78,7 @@ void	ft_rrab(t_main *ptr, char c)
 		}
 		ptr->sa.item[i].value = tmp;
 	}
-	if (c == 'b'  && ptr->sa.len > 1)
+	if (c == 'b' && ptr->sa.len > 1)
 	{
 		tmp = ptr->sb.item[i].value;
 		while (i < ptr->sb.len - 1)
