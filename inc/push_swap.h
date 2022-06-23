@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 16:27:46 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/06/22 01:13:48 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/06/23 02:45:12 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,15 @@ typedef struct s_stacks
 {
     t_item *item;
     int len;
-    int start;
 }   t_stacks;
 
 typedef struct s_main
 {
     char    **args;
     int     *values;
+    int small;
+    int large;
+    int pos;
     t_stacks    sa;
     t_stacks    sb;
     int     len;

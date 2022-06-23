@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 20:06:01 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/06/23 00:44:09 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/06/23 02:51:36 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,31 @@ void	t_sort(t_main *ptr)
 		ft_rab(ptr, 'a');
 }
 
+void	push_small(t_main *ptr)
+{
+	int	i;
+
+	i = ptr->sa.len - 1;
+	ptr->small = ptr->sa.item[i].value;
+	ptr->pos = ptr->sa.len - 1;
+	while (i >= 0)
+	{
+		if (ptr->sa.item[i].value < ptr->small)
+		{
+			ptr->small = ptr->sa.item[i].value;
+			ptr->pos--;
+		}
+		i--;
+	}
+	printf("pos = %d\n", ptr->pos);
+	printf("small = %d\n", ptr->small);
+}
+
+// void	f_sort(t_main *ptr)
+// {
+	
+// }
+
 int	main(int ac, char **av)
 {
 	t_main	ptr;
@@ -106,7 +131,8 @@ int	main(int ac, char **av)
 		return (ft_printf("Error\n"), 1);
 	if (!ft_sorted(ptr))
 		return (ft_printf("numbers are sorted"), 1);
-	t_sort(&ptr);
+	// t_sort(&ptr);
+	push_small(&ptr);
 	// i = ptr.sb.len;
 	// while (i-- > 0)
 	// 	printf("%d\n", ptr.sb.item[i].value);
