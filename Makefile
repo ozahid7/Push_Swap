@@ -1,14 +1,14 @@
 PUSH_SWAP = push_swap
 PUSH_SWAP_B = push_swap_b
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 INC = -I ./inc
 BUILD = build
 BUILD_B = build
 
 FILES = ft_printf/ft_argp ft_printf/ft_hexa ft_printf/ft_printf  ft_printf/ft_putchar\
 		ft_printf/ft_putnbr ft_printf/ft_putstr ft_printf/ft_unsignednumber\
-		push_swap_utilis_fun push_swap push_swap_split ps_moves ps_utils\
+		push_swap_utilis_fun push_swap push_swap_split ps_moves ps_utils ps_tree_five_sort\
 
 		
 		
