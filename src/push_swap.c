@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 20:06:01 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/06/25 23:53:45 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/06/26 23:29:32 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,93 +46,75 @@ void	ft_push_to(t_main *ptr, char c)
 	int	lenb;
 
 	i = 0;
-	lena = ptr->sa.len;
-	lenb = ptr->sb.len;
 	if (c == 'b' && ptr->sa.len != 0)
 	{
-		lena--;
-		ptr->sb.item[lenb].value = ptr->sa.item[lena].value;
+		lena = ptr->sa.len - 1;
+		lenb = ptr->sb.len;
+		ptr->sb.item[lenb] = ptr->sa.item[lena];
 		ptr->sb.len++;
 		ptr->sa.len--;
 	}
 	if (c == 'a' && ptr->sb.len != 0)
 	{
-		lenb--;
-		ptr->sa.item[lena].value = ptr->sb.item[lenb].value;
+		lena = ptr->sa.len;
+		lenb = ptr->sb.len - 1;
+		ptr->sa.item[lena] = ptr->sb.item[lenb];
 		ptr->sa.len++;
 		ptr->sb.len--;
 	}
 }
 
-int	get_start(t_main *ptr)
+int	check_pos(t_main ptr, int pos)
 {
 	int	i;
 
-	i = ptr->sa.len - 1;
+	i = ptr.sa.len - 1;
 	while (i >= 0)
 	{
-		if (ptr->sa.item[i].pos == -1)
-			return (ptr->sa.item[i].value);
+		if (ptr.sa.item[i].pos <= pos)
+			return (1);
 		i--;
 	}
 	return (0);
 }
 
-int	get_pos(t_main *ptr)
+void	ready_pushto_b(t_main *ptr, int j)
 {
 	int	i;
-	int	small;
-	int	pos;
-	
+
 	i = ptr->sa.len - 1;
-	pos = ptr->sa.len - 1;
-	small = get_start(ptr);
-	i = ptr->sa.len - 1;
-		while (i >= 0)
+	while (check_pos(*ptr, j))
+	{
+		if (ptr->sa.item[i].pos <= j)
 		{
-			if (small >= ptr->sa.item[i].value && ptr->sa.item[i].pos == -1)
-			{
-				small = ptr->sa.item[i].value;
-				pos = i;
-			}
-			i--;
-		}
-		return (pos);
-}
-
-void	set_pos(t_main *ptr)
-{
-	int	i;
-	int	pos;
-	
-	i = 0;
-	while (i < ptr->sa.len)
-	{
-		pos = get_pos(ptr);
-		ptr->sa.item[pos].pos = i;
-		i++;
-	}
-}
-
-void	oh_sort(t_main *ptr)
-{
-	int	i;
-	//int	pos;
-	
-	i = ptr->sa.len - 1;
-	while (i-- > 0)
-	{
-		if (ptr->sa.item[i].pos < 20)
 			ft_push_to(ptr, 'b');
+			i = ptr->sa.len - 1;
+		}
+		else
+			ft_rab(ptr, 'a');
 	}
 }
+
+void	push_b(t_main *ptr)
+{
+	int	j;
+
+	j = 20;
+	while (j <= 100)
+	{
+		ready_pushto_b(ptr, j);
+		j += 20;
+	}
+}
+
 
 int	main(int ac, char **av)
 {
 	t_main	ptr;
 	int		i;
+	int		j;
+	int		a;
 
-	i = 0;
 	if (parser(&ptr, ac, av))
 		return (ft_printf("Error\n"), 1);
 	if (check_empty(ptr))
@@ -141,14 +123,21 @@ int	main(int ac, char **av)
 		return (ft_printf("Error\n"), 1);
 	if (!ft_sorted(ptr))
 		return (ft_printf("numbers are sorted"), 1);
-	// f_sort(&ptr);
 	set_pos(&ptr);
-	oh_sort(&ptr);
-	// int j = ptr.sa.len;
-	// while (j-- > 0)
-	// 	printf("%d | %d\n", ptr.sa.item[j].value, ptr.sa.item[j].pos);
+	push_b(&ptr);
+	a = ptr.sb.len;
+	i = ptr.sb.len - 1;
+	printf("\nsa.value |  sa.pos  \n");
+	printf("--------------------\n");
+	j = ptr.sa.len;
+	while (j-- > 0)
+		printf("    %d    |    %d   \n", ptr.sa.item[j].value, ptr.sa.item[j].pos);
 	i = ptr.sb.len;
+	printf("\nsb.value |  sb.pos  \n");
+	printf("--------------------\n");
 	while (i-- > 0)
-		printf("%d\n", ptr.sb.item[i].value);
+		printf("    %d    |    %d  \n", ptr.sb.item[i].value, ptr.sb.item[i].pos);
+	printf("sb.len = %d\n", ptr.sb.len);
+	printf("sa.len = %d\n", ptr.sa.len);
 	return (0);
 }

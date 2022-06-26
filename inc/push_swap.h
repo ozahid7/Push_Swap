@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 16:27:46 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/06/24 21:07:44 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/06/26 23:28:42 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,8 @@ int		find_small(t_main *ptr);
 void	push_small(t_main *ptr);
 void	f_sort(t_main *ptr);
 
+//position
+int		get_start(t_main *ptr);
+int		get_pos(t_main *ptr);
+void	set_pos(t_main *ptr);
 #endif
