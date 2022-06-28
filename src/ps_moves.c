@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 01:00:59 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/06/26 21:30:36 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/06/28 01:13:55 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,34 +33,37 @@ void	ft_sab(t_main *ptr, char c)
 	}
 }
 
-void	ft_rab(t_main *ptr, char c)
+void ft_rotate(t_stacks *stack)
 {
 	int	len;
 	t_item	tmp;
 
+	if (stack->len > 1)
+	{
+		len = stack->len - 1;
+		tmp = stack->item[len];
+		while (len > 0)
+		{
+			stack->item[len] = stack->item[len - 1];
+			len--;
+		}
+		stack->item[len] = tmp;
+	}
+}
+
+void	ft_rab(t_main *ptr, char c)
+{
 	if (c == 'a' && ptr->sa.len > 1)
 	{
-		len = ptr->sa.len - 1;
-		tmp = ptr->sa.item[len];
-		while (len > 0)
-		{
-			ptr->sa.item[len] = ptr->sa.item[len - 1];
-			len--;
-		}
-		ptr->sa.item[len] = tmp;
+		ft_rotate(&ptr->sa);
 	}
-	if (c == 'b' && ptr->sa.len > 1)
+	if (c == 'b' && ptr->sb.len > 1)
 	{
-		tmp = ptr->sb.item[len];
-		len = ptr->sa.len - 1;
-		while (len > 0)
-		{
-			ptr->sb.item[len] = ptr->sb.item[len - 1];
-			len--;
-		}
-		ptr->sb.item[len] = tmp;
+		ft_rotate(&ptr->sb);
 	}	
+	printf("r%c\n", c);
 }
+
 
 void	ft_rrab(t_main *ptr, char c)
 {
@@ -78,7 +81,7 @@ void	ft_rrab(t_main *ptr, char c)
 		}
 		ptr->sa.item[i] = tmp;
 	}
-	if (c == 'b' && ptr->sa.len > 1)
+	if (c == 'b' && ptr->sb.len > 1)
 	{
 		tmp = ptr->sb.item[i];
 		while (i < ptr->sb.len - 1)
@@ -88,12 +91,20 @@ void	ft_rrab(t_main *ptr, char c)
 		}
 		ptr->sb.item[i] = tmp;
 	}
+	printf("rr%c\n", c);
 }
 
 void	ft_rrr(t_main ptr)
 {
 	ft_rrab(&ptr, 'a');
 	ft_rrab(&ptr, 'b');
+}
+
+void	ft_rr(t_main *ptr)
+{
+	ft_rotate(&ptr->sa);
+	ft_rotate(&ptr->sb);
+	printf("rr\n");
 }
 
 void	ft_ss(t_main ptr)

@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 16:27:46 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/06/26 23:28:42 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/06/28 01:08:47 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_main
 	int			small;
 	int			large;
 	int			pos;
+	int			posb;
 	t_stacks	sa;
 	t_stacks	sb;
 	int			len;
@@ -55,6 +56,7 @@ void	ft_sab(t_main *ptr, char c);
 void	ft_ss(t_main ptr);
 void	ft_rrr(t_main ptr);
 void	ft_rrab(t_main *ptr, char c);
+void	ft_rr(t_main *ptr);
 
 //parser
 int		argslen(t_main ptr);

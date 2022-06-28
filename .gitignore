@@ -2,3 +2,7 @@ build
 *.o
 checker_Mac (1)
 push_swap
+Push_swap42
+push_swap_tester
+MY_PUSH_SWAP_TESTER
+.vscode
