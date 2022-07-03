@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 01:00:59 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/06/28 01:13:55 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/07/03 21:21:08 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_sab(t_main *ptr, char c)
 {
 	t_item	tmp;
-	int	len;
+	int		len;
 
 	if (ptr->sa.len > 1 && c == 'a')
 	{
@@ -31,11 +31,12 @@ void	ft_sab(t_main *ptr, char c)
 		ptr->sb.item[len] = ptr->sb.item[len - 1];
 		ptr->sb.item[len - 1] = tmp;
 	}
+	ft_printf("s%c\n", c);
 }
 
-void ft_rotate(t_stacks *stack)
+void	ft_rotate(t_stacks *stack)
 {
-	int	len;
+	int		len;
 	t_item	tmp;
 
 	if (stack->len > 1)
@@ -61,14 +62,13 @@ void	ft_rab(t_main *ptr, char c)
 	{
 		ft_rotate(&ptr->sb);
 	}	
-	printf("r%c\n", c);
+	ft_printf("r%c\n", c);
 }
-
 
 void	ft_rrab(t_main *ptr, char c)
 {
 	t_item	tmp;
-	int	i;
+	int		i;
 
 	i = 0;
 	if (c == 'a' && ptr->sa.len > 1)
@@ -91,24 +91,12 @@ void	ft_rrab(t_main *ptr, char c)
 		}
 		ptr->sb.item[i] = tmp;
 	}
-	printf("rr%c\n", c);
-}
-
-void	ft_rrr(t_main ptr)
-{
-	ft_rrab(&ptr, 'a');
-	ft_rrab(&ptr, 'b');
+	ft_printf("rr%c\n", c);
 }
 
 void	ft_rr(t_main *ptr)
 {
 	ft_rotate(&ptr->sa);
 	ft_rotate(&ptr->sb);
-	printf("rr\n");
-}
-
-void	ft_ss(t_main ptr)
-{
-	ft_sab(&ptr, 'a');
-	ft_sab(&ptr, 'b');
+	ft_printf("rr\n");
 }

@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 19:11:26 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/06/26 23:28:53 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/06/29 19:46:38 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ void	push_small(t_main *ptr)
 	while (1)
 	{
 		if (ptr->sa.item[i].value != ptr->small && ptr->pos > i / 2)
-			ft_rrab(ptr, 'a');
-		else if (ptr->sa.item[i].value != ptr->small && ptr->pos <= i / 2)
 			ft_rab(ptr, 'a');
+		else if (ptr->sa.item[i].value != ptr->small && ptr->pos <= i / 2)
+			ft_rrab(ptr, 'a');
 		else
 			break ;
 	}

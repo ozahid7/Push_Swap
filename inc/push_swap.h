@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 16:27:46 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/06/28 01:08:47 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/07/03 23:09:10 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct s_stacks
 typedef struct s_main
 {
 	char		**args;
-	int			*values;
 	int			small;
 	int			large;
 	int			pos;
@@ -47,14 +46,14 @@ typedef struct s_main
 size_t	ft_strlcat(char *dst, char *src);
 char	*ft_strjoin(char *s1, char *s2);
 int		ft_strlen(char *str);
-int		ft_atoi(char *str);
-void	ft_free(char **args);
+int		ft_atoi(char *str, int *e);
+void	ft_freeit(char **args);
+char	**freeit(char **str, int k);
+void	free_all(t_main *ptr);
 
 //instructions
 void	ft_rab(t_main *ptr, char c);
 void	ft_sab(t_main *ptr, char c);
-void	ft_ss(t_main ptr);
-void	ft_rrr(t_main ptr);
 void	ft_rrab(t_main *ptr, char c);
 void	ft_rr(t_main *ptr);
 
@@ -62,8 +61,9 @@ void	ft_rr(t_main *ptr);
 int		argslen(t_main ptr);
 void	ft_freeit(char **args);
 int		parser(t_main *ptr, int ac, char **av);
-int		check_empty(t_main ptr);
-int		check_args_int(t_main ptr);
+int		check_empty(char **av);
+int		check_args_int(char ch, int *sig);
+int		check_multi(t_main *ptr);
 
 int		clone_data(t_main *ptr);
 void	ft_push_to(t_main *ptr, char c);
@@ -83,9 +83,16 @@ void	t_sort(t_main *ptr);
 int		find_small(t_main *ptr);
 void	push_small(t_main *ptr);
 void	f_sort(t_main *ptr);
+void	push_back(t_main *ptr);
+void	push_to_a(t_main *ptr);
+void	ready_pushto_b(t_main *ptr, int j, int r);
 
 //position
 int		get_start(t_main *ptr);
 int		get_pos(t_main *ptr);
 void	set_pos(t_main *ptr);
+int		get_large(t_main *ptr);
+void	oh_fh_sort(t_main *ptr, int nb);
+int		check_pos(t_main ptr, int pos);
+
 #endif

@@ -6,16 +6,16 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 16:22:49 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/06/23 00:09:04 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/07/03 21:34:23 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_atoi(char *str)
+int	ft_atoi(char *str, int *e)
 {
 	long long int	i;
-	size_t			s;
+	int				s;
 	long long int	r;
 
 	i = 0;
@@ -33,6 +33,8 @@ int	ft_atoi(char *str)
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
 	{
 		r = r * 10 + (str[i] - 48);
+		if ((r > 2147483647 && s == 1) || (r * s < -2147483648))
+			*e = 1;
 		i++;
 	}
 	return (r * s);
@@ -83,5 +85,19 @@ char	*ft_strjoin(char *s1, char *s2)
 	*str = 0;
 	ft_strlcat(str, s1);
 	ft_strlcat(str, s2);
+	free (s1);
 	return (str);
+}
+
+void	ft_freeit(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+	{
+		free(args[i]);
+		i++;
+	}
+	free(args);
 }

@@ -8,8 +8,8 @@ BUILD_B = build
 
 FILES = ft_printf/ft_argp ft_printf/ft_hexa ft_printf/ft_printf  ft_printf/ft_putchar\
 		ft_printf/ft_putnbr ft_printf/ft_putstr ft_printf/ft_unsignednumber\
-		push_swap_utilis_fun push_swap push_swap_split ps_moves ps_utils ps_tree_five_sort\
-		ps_position_fun
+		push_swap_utilis_fun push_swap push_swap_split ps_moves ps_parsing_fun ps_tree_five_sort\
+		ps_position_fun ps_oneh_fiveh_fun ps_fun_2\
 
 		
 		

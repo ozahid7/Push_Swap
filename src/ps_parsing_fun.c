@@ -1,57 +1,76 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_utils.c                                         :+:      :+:    :+:   */
+/*   ps_parsing_fun.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 01:06:08 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/06/23 00:08:50 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/07/03 00:17:00 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	check_args_int(t_main ptr)
+int	check_args_int(char ch, int *sig)
+{
+	if ((ch > 47 && ch < 58))
+		return (0);
+	else if ((ch == '-' || ch == '+') && *sig == 0)
+	{
+		*sig = 1;
+		return (0);
+	}
+	return (1);
+}
+
+int	check_multi(t_main *ptr)
 {
 	int	i;
 	int	j;
+	int	tmp;
 
-	i = 0;
-	while (ptr.args[i])
+	i = ptr->sa.len - 1;
+	while (i >= 0)
 	{
-		j = 0;
-		while (ptr.args[i][j])
+		tmp = ptr->sa.item[i].value;
+		j = i - 1;
+		while (j >= 0)
 		{
-			if (ptr.args[i][j] < 47 || ptr.args[i][j] > 57)
+			if (tmp == ptr->sa.item[j].value)
 				return (1);
-			j++;
+			j--;
 		}
-		i++;
+		i--;
 	}
 	return (0);
 }
 
-int	check_empty(t_main ptr)
+int	check_empty(char **av)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	int		s;
+	int		sig;
 
 	i = 0;
-	if (ptr.args[i] == 0)
-		return (1);
-	while (ptr.args[i])
+	while (av[++i])
 	{
+		s = 0;
 		j = 0;
-		while (ptr.args[i][j])
+		while (av[i][j])
 		{
-			if (ptr.args[i][j] == ' ')
-				j++;
-			else if (ptr.args[i][j] != ' ' && check_args_int(ptr))
+			if (av[i][j] == ' ')
+			{
+				sig = 0;
+				s++;
+			}
+			else if (check_args_int(av[i][j], &sig))
 				return (1);
 			j++;
 		}
-		i++;
+		if (s == ft_strlen(av[i]))
+			return (1);
 	}
 	return (0);
 }
@@ -65,6 +84,8 @@ int	parser(t_main *ptr, int ac, char **av)
 	str = NULL;
 	if (ac == 1)
 		return (1);
+	if (check_empty(av))
+		return (1);
 	while (ac > 1 && av[i])
 	{
 		str = ft_strjoin(str, av[i]);
@@ -74,19 +95,6 @@ int	parser(t_main *ptr, int ac, char **av)
 	ptr->args = ft_split(str, ' ');
 	free(str);
 	return (0);
-}
-
-void	ft_freeit(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i])
-	{
-		free(args[i]);
-		i++;
-	}
-	free(args);
 }
 
 int	argslen(t_main ptr)
