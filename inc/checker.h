@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 16:27:46 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/07/06 23:33:50 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/07/06 23:44:06 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef CHECKER_H
+# define CHECKER_H
 
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include "ft_printf.h"
+# include "get_next_line.h"
 
 typedef struct s_item
 {
@@ -34,6 +35,7 @@ typedef struct s_stacks
 typedef struct s_main
 {
 	char		**args;
+	char		*ins;
 	int			small;
 	int			large;
 	int			pos;
@@ -57,6 +59,8 @@ void	ft_rab(t_main *ptr, char c);
 void	ft_sab(t_main *ptr, char c);
 void	ft_rrab(t_main *ptr, char c);
 void	ft_rr(t_main *ptr);
+void	ft_ss(t_main *ptr);
+void	ft_rrr(t_main *ptr);
 
 //parser
 int		argslen(t_main ptr);
@@ -80,20 +84,5 @@ void	*ft_calloc(size_t count, size_t size);
 
 //sorting
 int		ft_sorted(t_main ptr);
-void	t_sort(t_main *ptr);
-int		find_small(t_main *ptr);
-void	push_small(t_main *ptr);
-void	f_sort(t_main *ptr);
-void	push_back(t_main *ptr);
-void	push_to_a(t_main *ptr);
-void	ready_pushto_b(t_main *ptr, int j, int r);
-
-//position
-int		get_start(t_main *ptr);
-int		get_pos(t_main *ptr);
-void	set_pos(t_main *ptr);
-int		get_large(t_main *ptr);
-void	oh_fh_sort(t_main *ptr, int nb);
-int		check_pos(t_main ptr, int pos);
 
 #endif

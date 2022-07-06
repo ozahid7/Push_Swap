@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   push_swap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 20:06:01 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/07/06 23:35:26 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/07/06 23:48:36 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 int	clone_data(t_main *ptr)
 {
@@ -64,27 +64,57 @@ void	ft_push_to(t_main *ptr, char c)
 		ptr->sa.len++;
 		ptr->sb.len--;
 	}
-	ft_printf("p%c\n", c);
 }
 
-void	push_back(t_main *ptr)
+int	do_ins(t_main *ptr)
 {
-	while (ptr->sb.len > 0)
+	if (!strcmp("ra\n", ptr->ins))
+		ft_rab(ptr, 'a');
+	else if (!strcmp(ptr->ins, "rb\n"))
+		ft_rab(ptr, 'b');
+	else if (!strcmp(ptr->ins, "sa\n"))
+		ft_sab(ptr, 'a');
+	else if (!strcmp(ptr->ins, "sb\n"))
+		ft_sab(ptr, 'b');
+	else if (!strcmp(ptr->ins, "rra\n"))
+		ft_rrab(ptr, 'a');
+	else if (!strcmp(ptr->ins, "rrb\n"))
+		ft_rrab(ptr, 'b');
+	else if (!strcmp(ptr->ins, "rrr\n"))
+		ft_rrr(ptr);
+	else if (!strcmp(ptr->ins, "rr\n"))
+		ft_rr(ptr);
+	else if (!strcmp(ptr->ins, "ss\n"))
+		ft_ss(ptr);
+	else if (!strcmp(ptr->ins, "pa\n"))
+		ft_push_to(ptr, 'a');
+	else if (!strcmp(ptr->ins, "pb\n"))
+		ft_push_to(ptr, 'b');
+	else
+		return (1);
+	return (0);
+}
+
+int	read_ins(t_main *ptr)
+{
+	int	i;
+
+	i = 0;
+	ptr->ins = get_next_line(0);
+	while (ptr->ins)
 	{
-		push_to_a(ptr);
+		if (do_ins(ptr))
+			return (1);
+		ptr->ins = get_next_line(0);
 	}
-}
-
-void	final_sort(t_main *ptr)
-{
-	if (ptr->sa.len < 4)
-		t_sort(ptr);
-	else if (ptr->sa.len < 6)
-		f_sort(ptr);
-	else if (ptr->sa.len < 101)
-		oh_fh_sort(ptr, 5);
-	else if (ptr->sa.len > 100)
-		oh_fh_sort(ptr, 10);
+	if (ptr->ins == 0)
+	{
+		if (!ft_sorted(*ptr) && ptr->sb.len == 0)
+			ft_printf("OK\n");
+		else
+			ft_printf("KO\n");
+	}
+	return (0);
 }
 
 int	main(int ac, char **av)
@@ -103,12 +133,6 @@ int	main(int ac, char **av)
 		free_all(&ptr);
 		return (ft_error(), 1);
 	}
-	if (!ft_sorted(ptr))
-	{
-		free_all(&ptr);
-		return (0);
-	}
-	set_pos(&ptr);
-	final_sort(&ptr);
-	free_all(&ptr);
+	if (read_ins(&ptr))
+		return (ft_error(), 1);
 }

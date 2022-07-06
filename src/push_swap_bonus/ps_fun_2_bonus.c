@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_fun_2.c                                         :+:      :+:    :+:   */
+/*   ps_fun_2_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 23:06:00 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/07/06 23:33:10 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/07/06 22:57:41 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 void	free_all(t_main *ptr)
 {
@@ -71,7 +71,16 @@ char	**ft_split(char *s, char c)
 	return (str);
 }
 
-void	ft_error(void)
+int	ft_sorted(t_main ptr)
 {
-	write(2, "Error\n", 6);
+	int	i;
+
+	i = ptr.sa.len - 1;
+	while (i > 0)
+	{
+		if (ptr.sa.item[i].value > ptr.sa.item[i - 1].value)
+			return (1);
+		i--;
+	}
+	return (0);
 }
