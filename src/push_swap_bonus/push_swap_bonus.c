@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 20:06:01 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/07/06 23:48:36 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/07/06 23:54:29 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	ft_push_to(t_main *ptr, char c)
 		ptr->sb.len--;
 	}
 }
+
 
 int	do_ins(t_main *ptr)
 {
